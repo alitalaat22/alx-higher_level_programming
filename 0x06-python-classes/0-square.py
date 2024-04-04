@@ -2,5 +2,5 @@
 
 
 class Square:
-        """Creating empty class Square"""
-        pass
+    """Creating empty class Square"""
+    pass
