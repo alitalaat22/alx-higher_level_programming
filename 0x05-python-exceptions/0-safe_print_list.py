@@ -1,8 +1,12 @@
 #!/usr/bin/python3
-# 0-square.py by Ehoneah Obed
-"""Defines a square """
 
-
-class Square:
-    """Does nothing"""
-    pass
+def safe_print_list(my_list=[], x=0):
+    total = 0
+    for i in range(x):
+        try:
+            print(f"{my_list[i]}", end="")
+            total += 1
+        except IndexError:
+            break
+    print()
+    return(total)

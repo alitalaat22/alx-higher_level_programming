@@ -1,14 +1,11 @@
 #!/usr/bin/python3
-# 0-square.py by Ehoneah Obed
-"""Defines a square """
-
-
-class Square:
-    """Represents a square"""
-
-    def __init__(self, size):
-        """Initializing this square class
-        Args: size - represnets the size of the square defined
-        """
-
-        self.__size = size
+def safe_print_list_integers(my_list=[], x=0):
+    count = 0
+    for i in range(x):
+        try:
+            print("{:d}".format(my_list[i]), end="")
+            count += 1
+        except (ValueError, TypeError):
+            pass
+    print()
+    return (count)
