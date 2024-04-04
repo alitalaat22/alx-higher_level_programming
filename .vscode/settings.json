@@ -1,7 +1,7 @@
 {
-    "files.insertFinalNewline": true,
+    "files.insertFinalNewline": false,
     "editor.renderFinalNewline": "on",
-    "files.trimFinalNewlines": true,
+    "files.trimFinalNewlines": false,
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.autoImportCompletions": true
 }
