@@ -6,10 +6,13 @@
 #!/usr/bin/python3
 def search_replace(my_list, search, replace):
     s = []
+    n = []
     for i in my_list:
         if i == search:
-            s.append(replace)
-            
+            n.append(replace)
+            s.append(n)
+            return s
         else:
-            s.append(i)
-    return s
+            return
+    else:
+        return my_list
