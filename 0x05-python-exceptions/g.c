@@ -105,7 +105,6 @@ int main(int argc, char **argv)
 		vch = vch + 1;
 	}
 	keygen[1] = ((char *)alph)[(ch ^ 79) & 63];
-	/* ----------- f3 ----------- */
 	ch = 1;
 	vch = 0;
 	while (vch < len)
