@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-# 0-square.py by Ehoneah Obed
+   #!/usr/bin/python3
 """A module that defines a square """
 
 
@@ -43,12 +42,8 @@ class Square:
         """
 
         return (self.__size ** 2)
-
     def my_print(self):
-        """print the square in # """
-
         if self.__size == 0:
-            print()
-
-        for i in range(self.__size):
-            print("#" * self.__size)
+            print("")
+        for i in range(self.size):
+            print("#"*self.size)
