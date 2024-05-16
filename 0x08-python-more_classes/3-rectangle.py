@@ -60,4 +60,4 @@ class Rectangle:
         if self.__width == 0 or self.__height == 0:
             return ("")
         co = "#" * self.width
-        return  f"{co}\n"* self.height
+        return  (f"{co}\n"* self.height).strip()
