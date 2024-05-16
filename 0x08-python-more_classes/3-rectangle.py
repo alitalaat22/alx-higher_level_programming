@@ -54,13 +54,10 @@ class Rectangle:
         if self.__width == 0 or self.__height == 0:
             return (0)
         return ((self.__width * 2) + (self.__height * 2))
-    def __str__(self):
-        """this func print the rectangle with the character #"""
-        if self.height < 1 or self.width < 1:
-            """if height or width equal zero return empty list"""
-            return ""
-        else:
-            """ co equal # of num width"""
-            co = "#" * self.width
-            """return result co and new line of height times """
-            return  (f"{co}\n"* self.height).strip()
+
+    def __str__(self) -> str:
+        """presents a diagram of the rectangle defined for an object"""
+        if self.__width == 0 or self.__height == 0:
+            return ("")
+        co = "#" * self.width
+        return  f"{co}\n"* self.height
