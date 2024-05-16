@@ -63,4 +63,4 @@ class Rectangle:
             """ co equal # of num width"""
             co = "#" * self.width
             """return result co and new line of height times """
-            return  f"{co}\n"* self.height       
+            return  (f"{co}\n"* self.height).strip()
