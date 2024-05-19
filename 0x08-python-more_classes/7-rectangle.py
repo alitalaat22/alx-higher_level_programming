@@ -5,7 +5,7 @@
 class Rectangle:
     """this represents a rectangle"""
     number_of_instances = 0
-    print_symbol = "#"
+    print_symbol = '#'
 
     def __init__(self, width=0, height=0):
         """Initializing this rectangle class
@@ -62,17 +62,13 @@ class Rectangle:
         """presents a diagram of the rectangle defined for an object"""
         if self.__width == 0 or self.__height == 0:
             return ("")
-        rectangle = ""
-        for column in range(self.__height):
-            for row in range(self.__width):
-                try:
-                    rectangle += str(self.print_symbol)
-                except Exception:
-                    rectangle += type(self).print_symbol
-            if column < self.__height - 1:
-                rectangle += "\n"
-        return (rectangle)
-
+        else:
+            """ co equal # of num width"""
+            co = str(self.print_symbol) * self.width
+            
+            """return result co and new line of height times """
+            return  (f"{co}\n"* self.height).strip()
+        
     def __repr__(self):
         """returns a string representation of the rectangle"""
         return "Rectangle({:d}, {:d})".format(self.__width, self.__height)

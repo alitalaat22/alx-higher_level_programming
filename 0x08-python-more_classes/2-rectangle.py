@@ -55,3 +55,4 @@ class Rectangle:
             return 0
 
         return ((self.height + self.width)*2)
+print("hello")
