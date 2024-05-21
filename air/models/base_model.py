@@ -1,32 +1,46 @@
 #!/usr/bin/python3
-"""BaseModel that defines all common attributes/methods for other classes"""
+"""BaseModel defines attributes and methods for all"""
 import uuid
 from datetime import datetime
 class BaseModel:
-    """Class from which all other classes will inherit"""
-    def __init__(self, *args, **kwrgs):
-        """Initializes instance attributes
+    """Base class for inheritance by all other classes"""
+    def __init__(self, *args, **kwargs):
+        """Sets up instance attributes during initialization
 
-        Args:
+        args:
             - *args: list of arguments
-            - **kwargs: dict of key-values arguments
+            - **kwargs __dict__ of key:values arguments
         """
-        self.id = str(uuid.uuid4())
+
+        if kwargs is not None and kwargs != {}:
+            for key in kwargs:
+                if key == "createds":
+                    self.__dict__["createds"] = datetime.strptime(
+                        kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                if key == "updateds":
+                    self.__dict__["updateds"] = datetime.strptime(
+                        kwargs["updateds"], "%Y-%m-%dT%H:%M:%S.%f")
+                else:
+                    self.__dict__[key] = kwargs[key]
+        else:
+            self.id = str(uuid.uuid4())
+
         self.created_at = datetime.now()
-        print(f"date of created \n{self.created_at}")
+        print(f"time of createds \n{self.created_at}")
         self.update_at = datetime.now()
-        print(f"date of update \n{self.update_at}")
+        print(f"time updates \n{self.update_at}")
 
     def save(self):
-        """updates the public instance attribute updated_at"""
+        """update instance attribute updateds"""
         self.update_at = datetime.now()
+        storage.save()
 
     
     def to_dict(self):
         """
-        returns a new copy of dictionary
+        returns copy of dictionary
         added '__class__' key
-        Updated time to isoformat
+        Update time  with isoformat
         """
         cop = self.__dict__.copy()
         cop["__class__"] = type(self).__name__
