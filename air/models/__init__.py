@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Initializes the package"""
+"""init all the package as lib"""
 from models.engine.file_storage import FileStorage
 storage = FileStorage()
 storage.reload()

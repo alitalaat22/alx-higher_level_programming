@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 'Module for the entry  interpreter'
 import cmd
-import re
 import json
 import models
 from models import storage
@@ -19,7 +18,6 @@ class HBNBCommand(cmd.Cmd):
         """for handle end line"""
         print()
         return True
-
     def emptylines(self):
         """empty lin + != anything"""
         pass
