@@ -1,18 +1,36 @@
-import ctypes
 
-lib = ctypes.CDLL('./libPython.so')
-lib.print_python_string.argtypes = [ctypes.py_object]
-s = "The spoon does not exist"
-lib.print_python_string(s)
-s = "ложка не существует"
-lib.print_python_string(s)
-s = "La cuillère n'existe pas"
-lib.print_python_string(s)
-s = "勺子不存在"
-lib.print_python_string(s)
-s = "숟가락은 존재하지 않는다."
-lib.print_python_string(s)
-s = "スプーンは存在しない"
-lib.print_python_string(s)
-s = b"The spoon does not exist"
-lib.print_python_string(s)
+from ast import alias
+
+
+class emp:
+    def __init__(self, name, age, salary, job_tittle):
+        self.name = name
+        self.age = age
+        self.salary = salary
+        self.job_tittle = job_tittle
+    
+    def targ(self, piece):
+        salary_piece = 15
+        pieces = salary_piece * piece
+        total_value = salary_piece * piece
+        target = self.salary + total_value
+        print("Total salary = ",target)
+        print("salary of pieces = ",{pieces})
+    
+    def prin(self):
+        
+        self.name = input("   name    = ")
+        self.age = int(input("   age    = "))
+        self.salary = float(input("  salary   = "))
+        self.job_tittle = input("job tittle = ")
+        piece = int(input("how many pice is done: ="))
+
+
+        print("   name    = ",self.name)
+        print("   age     = ", self.age)
+        print("  salary   = ",self.salary)
+        print("job tittle = ",self.job_tittle)
+        print("  target   =",piece)
+        self.targ(piece)
+em = emp("", 0, 0.0, "",)
+em.prin()
