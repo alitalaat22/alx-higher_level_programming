@@ -14,4 +14,4 @@ def load_from_json_file(filename):
     object: The python object represented by the JSON contant of the file
     """
     with open(filename, "r") as jslo:
-        json.load(jslo)
+        return json.load(jslo)
