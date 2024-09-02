@@ -46,8 +46,10 @@ class Rectangle(Base):
         Raises:
             ValueError: If the value is not a positive integer.
         """
-        if type(value) is not int or value <= 0:
-            raise ValueError("width must be an integer > 0")
+        if not isinstance(value, int):
+            raise TypeError("width must be an integer")
+        if value <= 0:
+            raise ValueError("width must be > 0")
         self.__width = value
 
     @property
@@ -71,8 +73,10 @@ class Rectangle(Base):
         Raises:
             ValueError: If the value is not a positive integer.
         """
-        if type(value) is not int or value <= 0:
-            raise ValueError("height must be an integer > 0")
+        if not isinstance(value, int):
+            raise TypeError("height must be an integer")
+        if value <= 0:
+            raise ValueError("height must be > 0")
         self.__height = value
 
     @property
@@ -96,8 +100,10 @@ class Rectangle(Base):
         Raises:
             ValueError: If the value is not a non-negative integer.
         """
-        if type(value) is not int or value < 0:
-            raise ValueError("x must be an integer >= 0")
+        if not isinstance(value, int):
+            raise TypeError("x must be an integer")
+        if value < 0:
+            raise ValueError("x must be >= 0")
         self.__x = value
 
     @property
@@ -121,4 +127,17 @@ class Rectangle(Base):
         Raises:
             ValueError: If the value is not a non-negative integer.
         """
+        if not isinstance(value, int):
+            raise TypeError("y must be an integer")
+        if value < 0:
+            raise ValueError("y must be >= 0")
         self.__y = value
+
+    def area(self):
+        """Calculate and return the area of the rectangle."""
+        return self.width * self.height
+
+    def display(self):
+        """Prints the Rectangle instance with the character #"""
+        for _ in range(self.height):
+            print("#" * self.width)
