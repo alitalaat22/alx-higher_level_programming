@@ -153,4 +153,4 @@ class Rectangle(Base):
         attrs = ['id', 'width', 'height', 'x', 'y']
         for index, arg in enumerate(args):
             if index < len(attrs):
-                setattr(self, attrs[i], arg)
+                setattr(self, attrs[index], arg)
