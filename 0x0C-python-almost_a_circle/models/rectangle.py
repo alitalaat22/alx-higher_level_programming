@@ -144,4 +144,4 @@ class Rectangle(Base):
 
     def __str__(self):
         return (f"[Rectangle] ({self.id}) {self.x}/"
-            f"{self.y} - {self.width}/{self.height}")
+                f"{self.y} - {self.width}/{self.height}")
