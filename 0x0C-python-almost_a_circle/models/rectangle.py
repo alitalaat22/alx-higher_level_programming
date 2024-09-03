@@ -139,8 +139,9 @@ class Rectangle(Base):
 
     def display(self):
         """Prints the Rectangle instance with the character #"""
+        print("/n" * self.x, end="")
         for _ in range(self.height):
-            print("#" * self.width)
+            print(" " * self.x + "#" * self.width)
 
     def __str__(self):
         return (f"[Rectangle] ({self.id}) {self.x}/"
