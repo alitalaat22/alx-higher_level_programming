@@ -50,14 +50,13 @@ class Base:
 
     @classmethod
     def create(cls, **dictionary):
-        """Create an instance with all attributes already set"""
-        # Create a dummy instance with default values
+        """create new instance method"""
         if cls.__name__ == "Rectangle":
-            dummy_instance = cls(1, 1, 1, 1)  # Default values
+            new_inst = cls(1, 1)
         elif cls.__name__ == "Square":
-            dummy_instance = cls(1, 1, 1)  # Default values
-        else:
-            raise ValueError("Unknown class")
+            new_inst = cls(1)
+        new_inst.update(**dictionary)
+        return new_inst
 
     @classmethod
     def load_from_file(cls):
