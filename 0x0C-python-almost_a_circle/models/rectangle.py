@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This module defines a Rectangle class that inherits from Base."""
 
-from models.base import Base
+from base import Base
 
 
 class Rectangle(Base):
@@ -147,10 +147,14 @@ class Rectangle(Base):
         return (f"[Rectangle] ({self.id}) {self.x}/"
                 f"{self.y} - {self.width}/{self.height}")
 
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         """Update attributes of the Rectangle
         instance based on provided arguments."""
-        attrs = ['id', 'width', 'height', 'x', 'y']
-        for index, arg in enumerate(args):
-            if index < len(attrs):
-                setattr(self, attrs[index], arg)
+        if args:
+            attrs = ['id', 'width', 'height', 'x', 'y']
+            for index, arg in enumerate(args):
+                if index < len(attrs):
+                    setattr(self, attrs[index], arg)
+        else:
+            for key, value in kwargs.items():
+                setattr(self, key, value)
