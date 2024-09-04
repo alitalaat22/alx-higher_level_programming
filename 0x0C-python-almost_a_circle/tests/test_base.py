@@ -1,140 +1,86 @@
 #!/usr/bin/python3
 import unittest
-from models.base import Base
-from models.square import Square
+import os
 import json
-import inspect
-
-'''
-    Creating test cases for the base module
-'''
-
-
-class test_base(unittest.TestCase):
-    '''
-        Testing base
-    '''
-    def test_id_none(self):
-        '''
-            Sending no id
-        '''
-        b = Base()
-        self.assertEqual(1, b.id)
-
-    def test_id(self):
-        '''
-            Sending a valid id
-        '''
-        b = Base(50)
-        self.assertEqual(50, b.id)
-
-    def test_id_zero(self):
-        '''
-            Sending an id 0
-        '''
-        b = Base(0)
-        self.assertEqual(0, b.id)
-
-    def test_id_negative(self):
-        '''
-            Sending a negative id
-        '''
-        b = Base(-20)
-        self.assertEqual(-20, b.id)
-
-    def test_id_string(self):
-        '''
-            Sending an id that is not an int
-        '''
-        b = Base("Betty")
-        self.assertEqual("Betty", b.id)
-
-    def test_id_list(self):
-        '''
-            Sending an id that is not an int
-        '''
-        b = Base([1, 2, 3])
-        self.assertEqual([1, 2, 3], b.id)
-
-    def test_id_dict(self):
-        '''
-            Sending an id that is not an int
-        '''
-        b = Base({"id": 109})
-        self.assertEqual({"id": 109}, b.id)
-
-    def test_id_tuple(self):
-        '''
-            Sending an id that is not an int
-        '''
-        b = Base((8,))
-        self.assertEqual((8,), b.id)
-
-    def test_to_json_type(self):
-        '''
-            Testing the json string
-        '''
-        sq = Square(1)
-        json_dict = sq.to_dictionary()
-        json_string = Base.to_json_string([json_dict])
-        self.assertEqual(type(json_string), str)
-
-    def test_to_json_value(self):
-        '''
-            Testing the json string
-        '''
-        sq = Square(1, 0, 0, 609)
-        json_dict = sq.to_dictionary()
-        json_string = Base.to_json_string([json_dict])
-        self.assertEqual(json.loads(json_string),
-                         [{"id": 609, "y": 0, "size": 1, "x": 0}])
-
-    def test_to_json_None(self):
-        '''
-            Testing the json string
-        '''
-        sq = Square(1, 0, 0, 609)
-        json_dict = sq.to_dictionary()
-        json_string = Base.to_json_string(None)
-        self.assertEqual(json_string, "[]")
-
-    def test_to_json_Empty(self):
-        '''
-            Testing the json string
-        '''
-        sq = Square(1, 0, 0, 609)
-        json_dict = sq.to_dictionary()
-        json_string = Base.to_json_string([])
-        self.assertEqual(json_string, "[]")
+import csv
+from models.base import Base
+from models.rectangle import Rectangle
+from models.square import Square
 
 
-class TestSquare(unittest.TestCase):
-    """
-    class for testing Base class' methods
-    """
+class TestBase(unittest.TestCase):
+    
+    def setUp(self):
+        """ إعداد البيانات الأساسية لكل اختبار """
+        self.rect1 = Rectangle(10, 2, 1, 9)
+        self.rect2 = Rectangle(5, 7)
+        self.sq1 = Square(10, 2, 1)
+        self.sq2 = Square(5)
 
-    @classmethod
-    def setUpClass(cls):
-        """
-        Set up class method for the doc tests
-        """
-        cls.setup = inspect.getmembers(Base, inspect.isfunction)
+    def test_to_json_string(self):
+        """ اختبار تحويل قائمة القواميس إلى JSON """
+        list_dict = [self.rect1.to_dictionary(), self.rect2.to_dictionary()]
+        json_string = Base.to_json_string(list_dict)
+        expected = json.dumps(list_dict)
+        self.assertEqual(json_string, expected)
 
-    def test_module_docstring(self):
-        """
-        Tests if module docstring documentation exist
-        """
-        self.assertTrue(len(Base.__doc__) >= 1)
+    def test_from_json_string(self):
+        """ اختبار تحويل JSON إلى قائمة قواميس """
+        list_dict = [self.rect1.to_dictionary(), self.rect2.to_dictionary()]
+        json_string = json.dumps(list_dict)
+        list_output = Base.from_json_string(json_string)
+        self.assertEqual(list_output, list_dict)
 
-    def test_class_docstring(self):
-        """
-        Tests if class docstring documentation exist
-        """
-        self.assertTrue(len(Base.__doc__) >= 1)
+    def test_save_to_file(self):
+        """ اختبار حفظ إلى ملف JSON """
+        list_objs = [self.rect1, self.rect2]
+        Base.save_to_file(list_objs)
+        filename = 'Base.json'
+        with open(filename, 'r') as file:
+            content = file.read()
+            list_dict = [self.rect1.to_dictionary(), self.rect2.to_dictionary()]
+            expected = Base.to_json_string(list_dict)
+            self.assertEqual(content, expected)
+        os.remove(filename)
 
-    def test_func_docstrings(self):
-        """
-        Tests if methods docstring documntation exist
-        """
-        for func in self.setup:
-            self.assertTrue(len(func[1].__doc__) >= 1)
+    def test_load_from_file(self):
+        """ اختبار تحميل من ملف JSON """
+        list_objs = [self.rect1, self.rect2]
+        Base.save_to_file(list_objs)
+        list_loaded = Base.load_from_file()
+        self.assertEqual(len(list_loaded), 2)
+        self.assertTrue(all(isinstance(obj, Rectangle) for obj in list_loaded))
+        os.remove('Base.json')
+
+    def test_save_to_file_csv(self):
+        """ اختبار حفظ إلى ملف CSV """
+        list_objs = [self.rect1, self.rect2]
+        Base.save_to_file_csv(list_objs)
+        filename = 'Base.csv'
+        with open(filename, 'r') as file:
+            reader = csv.DictReader(file)
+            list_dict = [self.rect1.to_dictionary(), self.rect2.to_dictionary()]
+            records = ['id', 'width', 'height', 'x', 'y']
+            reader_dicts = [dict(row) for row in reader]
+            list_dicts = [{k: int(v) for k, v in d.items()} for d in reader_dicts]
+            self.assertEqual(list_dicts, list_dict)
+        os.remove(filename)
+
+    def test_load_from_file_csv(self):
+        """ اختبار تحميل من ملف CSV """
+        list_objs = [self.rect1, self.rect2]
+        Base.save_to_file_csv(list_objs)
+        list_loaded = Base.load_from_file_csv()
+        self.assertEqual(len(list_loaded), 2)
+        self.assertTrue(all(isinstance(obj, Rectangle) for obj in list_loaded))
+        os.remove('Base.csv')
+
+    def test_draw(self):
+        """ اختبار رسم باستخدام مكتبة turtle """
+        try:
+            Base.draw([self.rect1], [self.sq1])
+        except turtle.TurtleGraphicsError:
+            self.fail("TurtleGraphicsError raised during draw")
+
+if __name__ == '__main__':
+    unittest.main()
