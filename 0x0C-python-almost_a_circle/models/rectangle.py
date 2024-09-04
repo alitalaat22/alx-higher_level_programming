@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This module defines a Rectangle class that inherits from Base."""
 
-from base import Base
+from models.base import Base
 
 
 class Rectangle(Base):
