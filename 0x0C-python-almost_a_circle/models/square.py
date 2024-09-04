@@ -74,3 +74,10 @@ class Square(Rectangle):
             setattr(self, index, value)
         for key, value in kwargs.items():
             setattr(self, key, value)
+
+    def to_dictionary(self):
+        """Return a dictionary representation of the Rectangle instance"""
+        return {'id': self.id,
+                'size' : self.size,
+                'x': self.x,
+                'y': self.y}

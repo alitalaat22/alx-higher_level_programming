@@ -1,16 +1,14 @@
 #!/usr/bin/python3
 """ 8-main """
+from base import Base
+from rectangle import Rectangle
 from square import Square
 
 if __name__ == "__main__":
 
-    s1 = Square(5)
-    print(s1)
-    print(s1.size)
-    s1.size = 10
-    print(s1)
+    r1 = Rectangle(10, 7, 2, 8)
+    r2 = Rectangle(2, 4)
+    Rectangle.save_to_file([r1, r2])
 
-    try:
-        s1.size = "9"
-    except Exception as e:
-        print("[{}] {}".format(e.__class__.__name__, e))
+    with open("Rectangle.json", "r") as file:
+        print(file.read())
