@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""test for model/base.py"""
 import unittest
 import os
 import json
